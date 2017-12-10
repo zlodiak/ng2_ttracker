@@ -1,7 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { GlobalVarsService } from './services/global-vars.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { TasksService } from './services/tasks.service';
+import { UsersService } from './services/users.service';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -19,10 +25,16 @@ import { DetailsComponent } from './components/details/details.component';
     DetailsComponent
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    GlobalVarsService,
+    AuthGuardService,
+    TasksService,
+    UsersService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
