@@ -1,6 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms'; 
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule,
+         MatInputModule,
+         MatDialogModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -14,6 +20,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { LoginComponent } from './components/login/login.component';
 import { ListComponent } from './components/list/list.component';
 import { DetailsComponent } from './components/details/details.component';
+import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component';
 
 
 @NgModule({
@@ -22,9 +29,15 @@ import { DetailsComponent } from './components/details/details.component';
     PageNotFoundComponent,
     LoginComponent,
     ListComponent,
-    DetailsComponent
+    DetailsComponent,
+    InfoDialogComponent
   ],
   imports: [
+    MatDialogModule,
+    MatInputModule,
+    MatButtonModule,
+    BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
     BrowserModule,
     AppRoutingModule
@@ -35,6 +48,9 @@ import { DetailsComponent } from './components/details/details.component';
     TasksService,
     UsersService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    InfoDialogComponent
+  ]   
 })
 export class AppModule { }

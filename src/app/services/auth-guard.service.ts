@@ -11,15 +11,15 @@ export class AuthGuardService {
   						private globalVarsService: GlobalVarsService) { };
 
   canActivate() {
-  	return true;
-    /*let authorizedLogin = this.globalVarsService.getVar('authorizedLogin');
+  	//return true;
+    let authorizedLogin = this.globalVarsService.getVar('authorizedLogin');
 
     if(!authorizedLogin) {
       this.router.navigate(['/login']);
       return false;
     } else {
       return true;
-    }*/
+    }
   } 
 
 }
