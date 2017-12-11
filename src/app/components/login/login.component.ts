@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
               private matDialog: MatDialog) { }
 
   ngOnInit() {
+    this.globalVarsService.setVar('authorizedLogin', 1);
+    this.globalVarsService.setVar('authorizedPk', 1);    
+      
   	this.getAllUsersData();
   }
 
@@ -69,7 +72,7 @@ export class LoginComponent implements OnInit {
   	this.usersService.getUsers().subscribe(
       data => {   
         this.allUsersData = JSON.parse(data);                 
-        console.log(this.allUsersData, typeof this.allUsersData);
+        console.log('allUsersData', this.allUsersData);
       }, 
       err => {
         // console.log('err', err)         

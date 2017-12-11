@@ -5,7 +5,7 @@ export class GlobalVarsService {
 
 	private globalVars: Object = {};
 
-  constructor() { }
+  constructor() {}
 
   getVar(key) {
   	return this.globalVars[key];

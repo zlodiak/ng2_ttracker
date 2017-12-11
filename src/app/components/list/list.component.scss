@@ -1,0 +1,26 @@
+.wrap{
+	
+	.table{
+		width: 100%;
+
+		tr{
+
+			&.completed{
+				color: gray;
+
+				td.overdue{
+					color: gray;
+				}				
+			}
+
+			td{
+				padding: 10px;
+				border: 1px solid #000;
+
+				&.overdue{
+					color: red;
+				}
+			}
+		}
+	}
+}

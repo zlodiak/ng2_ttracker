@@ -14,6 +14,7 @@ import { GlobalVarsService } from './services/global-vars.service';
 import { AuthGuardService } from './services/auth-guard.service';
 import { TasksService } from './services/tasks.service';
 import { UsersService } from './services/users.service';
+import { DateService } from './services/date.service';
 
 import { AppComponent } from './app.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -43,6 +44,7 @@ import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component
     AppRoutingModule
   ],
   providers: [
+    DateService,
     GlobalVarsService,
     AuthGuardService,
     TasksService,

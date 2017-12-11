@@ -1,3 +1,27 @@
-<p>
-  list works!
-</p>
+<div class="wrap">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>title</th>
+				<th>status</th>
+				<th>created_date</th>
+				<th>deadline_date</th>
+				<th>overdue</th>
+				<th>dateHumanNow</th>
+				<th>deadline_date_human</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			<tr *ngFor="let task of userTasks" [ngClass]="{completed: task.fields.status === 3}">
+				<td>{{ task.fields.title }}</td>
+				<td>{{ task.fields.status }}</td>
+				<td>{{ task.fields.created_date }}</td>
+				<td>{{ task.fields.deadline_date }}</td>
+				<td class="overdue"><div *ngIf="dateUnixNow >= task.fields['deadline_date_unix']">ПРОСРОЧЕНА</div></td>
+				<td>{{ dateUnixNowStr }}</td>
+				<td>{{ task.fields.deadline_date }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
