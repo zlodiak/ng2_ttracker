@@ -23,7 +23,12 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
   	let userId = this.globalVarsService.getVar('authorizedPk');
-  	this.getUserTasks(userId);
+    let this_ = this;
+
+    setInterval(function() {
+      console.log('start');
+      this_.getUserTasks(userId);
+    }, 3000);  	
   }
 
   private getUserTasks(userId): void { 	
