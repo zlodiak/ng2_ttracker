@@ -25,8 +25,8 @@ export class ListComponent implements OnInit {
   	let userId = this.globalVarsService.getVar('authorizedPk');
     let this_ = this;
 
+    this_.getUserTasks(userId);
     setInterval(function() {
-      console.log('start');
       this_.getUserTasks(userId);
     }, 3000);  	
   }
