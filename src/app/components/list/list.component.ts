@@ -13,6 +13,7 @@ import { Task } from '../../interfaces/task';
 })
 export class ListComponent implements OnInit {
 
+  private allStatuses: string[] = [];
 	private userTasks: Task[] = [];
   private dateUnixNow: number = this.dateService.getNowDate()['unixTimeStamp'];
   private dateUnixNowStr: string = this.dateService.fromUnixToHuman(this.dateUnixNow);  
@@ -29,10 +30,12 @@ export class ListComponent implements OnInit {
     setInterval(function() {
       this_.getUserTasks(userId);
     }, 3000);  	
+
+    this.getAllStatuses();
   }
 
-  private getUserTasks(userId): void { 	
-  	this.tasksService.getUserTasks(userId).subscribe(
+  private getUserTasks(userId): void {   
+    this.tasksService.getUserTasks(userId).subscribe(
       data => {   
         let userTasks = JSON.parse(data);         
 
@@ -49,4 +52,21 @@ export class ListComponent implements OnInit {
       }
     )
   };
+
+  private getAllStatuses(): void {   
+    this.tasksService.getAllStatuses().subscribe(
+      data => {   
+        let allStatuses = JSON.parse(data);   
+
+        allStatuses.forEach((el) => {
+          this.allStatuses.push(el.fields.title);
+        });
+
+        console.log('allStatuses', this.allStatuses);
+      }, 
+      err => {
+        // console.log('err', err)         
+      }
+    )
+  };  
 }

@@ -15,7 +15,7 @@
 		<tbody>
 			<tr *ngFor="let task of userTasks" [ngClass]="{completed: task.fields.status === 3}">
 				<td>{{ task.fields.title }}</td>
-				<td>{{ task.fields.status }}</td>
+				<td><div>{{ allStatuses[task.fields.status] }}</div></td>
 				<td>{{ task.fields.created_date }}</td>
 				<td>{{ task.fields.deadline_date }}</td>
 				<td class="overdue"><div *ngIf="dateUnixNow >= task.fields['deadline_date_unix']">ПРОСРОЧЕНА</div></td>
