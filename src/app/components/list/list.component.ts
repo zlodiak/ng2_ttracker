@@ -14,11 +14,8 @@ import { Task } from '../../interfaces/task';
 export class ListComponent implements OnInit {
 
 	private userTasks: Task[] = [];
-  private dateUnixNow: number = this.dateService.getNowDate().unixTimeStamp;
-  private dateUnixNowStr: string = this.dateService.fromUnixToHuman(this.dateUnixNow);
-
-  console.log('dateUnixNow', dateUnixNow);
-  console.log('dateHumanNow', dateHumanNow);  
+  private dateUnixNow: number = this.dateService.getNowDate()['unixTimeStamp'];
+  private dateUnixNowStr: string = this.dateService.fromUnixToHuman(this.dateUnixNow);  
 
   constructor(private globalVarsService: GlobalVarsService,
   						private tasksService: TasksService,
