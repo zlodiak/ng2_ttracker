@@ -7,8 +7,6 @@
 				<th>created_date</th>
 				<th>deadline_date</th>
 				<th>overdue</th>
-				<th>dateHumanNow</th>
-				<th>deadline_date_human</th>
 			</tr>
 		</thead>
 
@@ -19,8 +17,6 @@
 				<td>{{ task.fields.created_date }}</td>
 				<td>{{ task.fields.deadline_date }}</td>
 				<td class="overdue"><div *ngIf="dateUnixNow >= task.fields['deadline_date_unix']">ПРОСРОЧЕНА</div></td>
-				<td>{{ dateUnixNowStr }}</td>
-				<td>{{ task.fields.deadline_date }}</td>
 			</tr>
 		</tbody>
 	</table>

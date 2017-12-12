@@ -29,7 +29,7 @@ export class ListComponent implements OnInit {
     this_.getUserTasks(userId);
     setInterval(function() {
       this_.getUserTasks(userId);
-    }, 3000);  	
+    }, 10000);  	
 
     this.getAllStatuses();
   }
@@ -42,6 +42,9 @@ export class ListComponent implements OnInit {
         userTasks.forEach((task) => {
           task.fields['deadline_date_unix'] = this.dateService.stringToUnix(task.fields.deadline_date);
           task.fields.deadline_date = this.dateService.fromUnixToHuman(task.fields['deadline_date_unix']);
+
+          task.fields['created_date_unix'] = this.dateService.stringToUnix(task.fields.created_date);
+          task.fields.created_date = this.dateService.fromUnixToHuman(task.fields['created_date_unix']);
         });    
 
         this.userTasks = userTasks; 
