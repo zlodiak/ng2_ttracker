@@ -11,7 +11,7 @@
 		</thead>
 
 		<tbody>
-			<tr *ngFor="let task of userTasks" [ngClass]="{completed: task.fields.status === 3}">
+			<tr *ngFor="let task of userTasks" [ngClass]="{completed: task.fields.status === 3}" (click)="openDetails(task.pk)">
 				<td>{{ task.fields.title }}</td>
 				<td><div>{{ allStatuses[task.fields.status] }}</div></td>
 				<td>{{ task.fields.created_date }}</td>

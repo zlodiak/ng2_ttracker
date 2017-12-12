@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { GlobalVarsService } from '../../services/global-vars.service';
 import { TasksService } from '../../services/tasks.service';
@@ -13,6 +14,8 @@ import { Task } from '../../interfaces/task';
 })
 export class ListComponent implements OnInit {
 
+  private subTasks: any;
+  private subStatuses: any;
   private allStatuses: string[] = [];
 	private userTasks: Task[] = [];
   private dateUnixNow: number = this.dateService.getNowDate()['unixTimeStamp'];
@@ -20,7 +23,8 @@ export class ListComponent implements OnInit {
 
   constructor(private globalVarsService: GlobalVarsService,
   						private tasksService: TasksService,
-              private dateService: DateService) { }
+              private dateService: DateService, 
+              private router: Router) { }
 
   ngOnInit() {
   	let userId = this.globalVarsService.getVar('authorizedPk');
@@ -29,13 +33,18 @@ export class ListComponent implements OnInit {
     this_.getUserTasks(userId);
     setInterval(function() {
       this_.getUserTasks(userId);
-    }, 10000);  	
+    }, 2000);  	
 
     this.getAllStatuses();
   }
 
+  ngOnDestroy() {
+    this.subTasks.unsubscribe();
+    this.subStatuses.unsubscribe();
+  }  
+
   private getUserTasks(userId): void {   
-    this.tasksService.getUserTasks(userId).subscribe(
+    this.subTasks = this.tasksService.getUserTasks(userId).subscribe(
       data => {   
         let userTasks = JSON.parse(data);         
 
@@ -57,7 +66,7 @@ export class ListComponent implements OnInit {
   };
 
   private getAllStatuses(): void {   
-    this.tasksService.getAllStatuses().subscribe(
+    this.subStatuses = this.tasksService.getAllStatuses().subscribe(
       data => {   
         let allStatuses = JSON.parse(data);   
 
@@ -65,11 +74,16 @@ export class ListComponent implements OnInit {
           this.allStatuses.push(el.fields.title);
         });
 
-        console.log('allStatuses', this.allStatuses);
+        // console.log('allStatuses', this.allStatuses);
       }, 
       err => {
         // console.log('err', err)         
       }
     )
   };  
+
+  private openDetails(pk):void {
+    this.router.navigate(['/details', pk]);
+  };
+    
 }

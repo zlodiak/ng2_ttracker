@@ -22,7 +22,7 @@ const routes: Routes = [
     component: ListComponent
   }, 
   {
-    path: 'details',
+    path: 'details/:pk',
     children: [],
     canActivate: [AuthGuardService],
     component: DetailsComponent

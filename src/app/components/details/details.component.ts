@@ -1,4 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { UsersService } from '../../services/users.service';
+import { TasksService } from '../../services/tasks.service';
+import { DateService } from '../../services/date.service';
+import { Task } from '../../interfaces/task';
+import { User } from '../../interfaces/user';
+
 
 @Component({
   selector: 'app-details',
@@ -7,9 +15,129 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DetailsComponent implements OnInit {
 
-  constructor() { }
+	private subStatuses: any;
+	private pk: number;
+	private subQueryParams: any;
+	private task: Task;
+	private user: User;
+	private allUsersData: User[] = [];	
+	private selectedUser: number;
+	private allStatuses: string[] = [];
+
+  constructor(private activatedRoute: ActivatedRoute, 
+  						private tasksService: TasksService,
+  						private usersService: UsersService,
+  						private dateService: DateService) { }
 
   ngOnInit() {
+  	let this_ = this;
+
+    this.subQueryParams = this.activatedRoute.params.subscribe(params => {
+      this.pk = +params['pk'];
+      console.log('this.pk', this.pk);
+    });  	
+
+    this.getTask();  
+    this.getAllStatuses();  
+    setInterval(function() {
+      this_.getTask();
+      this_.getAllStatuses();
+    }, 2000);  
+
+    this.getAllUsersData();	    
   }
+
+  ngOnDestroy() {
+    this.subQueryParams.unsubscribe();
+    this.subStatuses.unsubscribe();
+  }   
+
+  private getTask(): void {   
+    this.tasksService.getTask(this.pk).subscribe(
+      data => {   
+        this.task = JSON.parse(data);    
+
+        this.task[0].fields['created_date_unix'] = this.dateService.stringToUnix(this.task[0].fields.created_date);
+        this.task[0].fields.created_date = this.dateService.fromUnixToHuman(this.task[0].fields['created_date_unix']);
+
+        this.task[0].fields['deadline_date_unix'] = this.dateService.stringToUnix(this.task[0].fields.deadline_date);
+        this.task[0].fields.deadline_date = this.dateService.fromUnixToHuman(this.task[0].fields['deadline_date_unix']);        
+   
+        console.log('task', this.task);
+
+        this.selectedUser = this.task[0].fields.user;
+
+        this.getUser(this.selectedUser);
+      }, 
+      err => {
+        // console.log('err', err)         
+      }
+    )
+  };
+
+  private getUser(id): void {   
+    this.usersService.getUser(id).subscribe(
+      data => {   
+        this.user = JSON.parse(data);               
+        console.log('user', this.user);
+      }, 
+      err => {
+        // console.log('err', err)         
+      }
+    )
+  };  
+
+  private getAllUsersData(): void { 	
+  	this.usersService.getUsers().subscribe(
+      data => {   
+        this.allUsersData = JSON.parse(data);                 
+        console.log('allUsersData', this.allUsersData);
+      }, 
+      err => {
+        // console.log('err', err)         
+      }
+    )
+  };   
+
+  private onChangeUser(ev, taskId) {
+  	this.selectedUser = ev.value;
+  	this.tasksService.updateTask(this.selectedUser, taskId).subscribe(
+	  	(data) => {
+	  		if(JSON.parse(data)['request_status'] == 1) {
+	  			alert('Назначен новый пользователь');
+	  		};
+	  	}
+	  );
+  }; 
+
+
+  private onChangeStatus(ev, taskId): void {   
+  	console.log(ev, taskId);
+  	this.tasksService.updateStatus(ev.value, taskId).subscribe(
+	  	(data) => {
+	  		if(JSON.parse(data)['request_status'] == 1) {
+	  			alert('Статус таска изменён');
+	  		};
+	  	}
+	  );  	
+  };
+
+  private getAllStatuses(): void {   
+    this.subStatuses = this.tasksService.getAllStatuses().subscribe(
+      data => {   
+        let allStatuses = JSON.parse(data);   
+        this.allStatuses = [];
+
+        allStatuses.forEach((el) => {
+          this.allStatuses.push(el.fields.title);
+        });
+
+        // console.log('allStatuses', this.allStatuses);
+      }, 
+      err => {
+        // console.log('err', err)         
+      }
+    )
+  };    
 
 }

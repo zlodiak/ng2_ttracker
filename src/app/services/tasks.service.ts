@@ -19,8 +19,21 @@ export class TasksService {
 		});  */	
   };
 
+  getTask(pk): Observable<any> {
+  	return this.http.get('http://127.0.0.1:8000/app_tasks/get_task?pk=' + pk );	
+  };  
+
   getAllStatuses(): Observable<any> {
   	return this.http.get('http://127.0.0.1:8000/app_tasks/all_statuses');	
   };
+
+  updateTask(userId, taskId): Observable<any> {
+  	return this.http.get('http://127.0.0.1:8000/app_tasks/update_task?user_id=' + userId + '&task_id=' + taskId);	
+  };  
+
+  updateStatus(statusId, taskId): Observable<any> {
+  	console.log(statusId);
+  	return this.http.get('http://127.0.0.1:8000/app_tasks/update_status?status_id=' + statusId + '&task_id=' + taskId);	
+  };    
 
 }

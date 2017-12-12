@@ -6,7 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule,
          MatInputModule,
-         MatDialogModule } from '@angular/material';
+         MatDialogModule,
+         MatSelectModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -34,6 +35,7 @@ import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component
     InfoDialogComponent
   ],
   imports: [
+    MatSelectModule,
     MatDialogModule,
     MatInputModule,
     MatButtonModule,

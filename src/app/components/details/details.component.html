@@ -1,3 +1,47 @@
-<p>
-  details works!
-</p>
+<div class="wrap">	
+	<table class="table" *ngIf="task && user">
+		<tbody>
+			<tr>
+				<td class="head">Название: </td>
+				<td class="body">{{ task[0]['fields']['title'] }}</td>
+			</tr>
+
+			<tr>
+				<td class="head">Статус: </td>
+				<td class="body">
+					<mat-select placeholder="Статус" [(value)]="task[0]['fields']['status']" (change)="onChangeStatus($event, task[0].pk)">
+					  <mat-option *ngFor="let status of allStatuses; let i = index" [value]="i">
+					    {{ status }}
+					  </mat-option>
+					</mat-select>
+				</td>
+			</tr>
+
+			<tr>
+				<td class="head">Дата создания: </td>
+				<td class="body">{{ task[0]['fields']['created_date'] }}</td>
+			</tr>
+
+			<tr>
+				<td class="head">Дедлайн: </td>
+				<td class="body">{{ task[0]['fields']['deadline_date'] }}</td>
+			</tr>
+
+			<tr>
+				<td class="head">Содержание: </td>
+				<td class="body">{{ task[0]['fields']['body'] }}</td>
+			</tr>
+
+			<tr>
+				<td class="head">Назначена пользователю: </td>
+				<td class="body">
+					<mat-select placeholder="Пользователь" [(value)]="selectedUser" (change)="onChangeUser($event, task[0].pk)">
+					  <mat-option *ngFor="let user of allUsersData" [value]="user.pk">
+					    {{ user.fields.fname + ' ' + user.fields.lname }}
+					  </mat-option>
+					</mat-select>
+				</td>
+			</tr>															
+		</tbody>
+	</table>
+</div>
