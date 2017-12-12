@@ -9,7 +9,9 @@
 
 				&.head{
 
-
+					&.overdue{
+						color: red;
+					}
 				}
 
 				&.body{

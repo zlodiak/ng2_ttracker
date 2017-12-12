@@ -41,7 +41,12 @@
 					  </mat-option>
 					</mat-select>
 				</td>
-			</tr>															
+			</tr>	
+
+			<tr>
+				<td class="head overdue"><div *ngIf="dateUnixNow >= task[0]['fields']['deadline_date_unix']">ПРОСРОЧЕНА</div></td>
+				<td class="body"></td>
+			</tr>														
 		</tbody>
 	</table>
 </div>
