@@ -1,11 +1,11 @@
 <div class="nav">
-  <button class="btn btn-common" type="button" mat-button (click)="checkAuth()">
+  <button class="btn btn-common" type="button" mat-button (click)="logout()" *ngIf="authorizeLogin">
     <div class="label">Выйти</div>
   </button>  
 
-  <a class="link" [routerLink]="['/list']" routerLinkActive="active">
+  <!-- <a class="link" [routerLink]="['/list']" routerLinkActive="active">
     <span class="title">list</span>
-  </a>    
+  </a> -->    
 </div>
 
 <router-outlet></router-outlet>

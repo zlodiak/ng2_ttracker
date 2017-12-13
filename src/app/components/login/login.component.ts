@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
 
 	private login: string = '';
   private password: string = '';
-	private allUsersData: User[] = [];		
+	private allUsersData: User[] = [];	
 
   constructor(private usersService: UsersService, 
               private globalVarsService: GlobalVarsService, 
@@ -26,10 +26,10 @@ export class LoginComponent implements OnInit {
               private matDialog: MatDialog) { }
 
   ngOnInit() {
-    this.globalVarsService.setVar('authorizedLogin', 1);
-    this.globalVarsService.setVar('authorizedPk', 1);    
+    // this.globalVarsService.setVar('authorizedLogin', 1);
+    // this.globalVarsService.setVar('authorizedPk', 1);    
       
-  	this.getAllUsersData();
+  	this.getAllUsersData();    
   }
 
   private checkAuth(): void {
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
       this.matDialog.open(InfoDialogComponent, {
         width: '300px',
         hasBackdrop: true,
-        data: { title: 'Error!', message: 'Please enter auth data' }
+        data: { title: 'Ошибка!', message: 'Введите авторизационные данные' }
       });      
       return;
     }
@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
       this.matDialog.open(InfoDialogComponent, {
         width: '300px',
         hasBackdrop: true,
-        data: { title: 'Error!', message: 'Authorization is failed' }
+        data: { title: 'Ошибка!', message: 'Неверные авторизационные данные' }
       });       
     }
   };

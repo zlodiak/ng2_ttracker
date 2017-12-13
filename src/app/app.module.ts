@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; 
 
+import { OrderModule } from 'ngx-order-pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule,
          MatInputModule,
@@ -36,6 +37,7 @@ import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component
     InfoDialogComponent
   ],
   imports: [
+    OrderModule,
     MatSortModule,
     MatSelectModule,
     MatDialogModule,

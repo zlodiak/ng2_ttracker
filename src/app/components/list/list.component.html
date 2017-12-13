@@ -2,21 +2,21 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>title</th>
-				<th>status</th>
-				<th>created_date</th>
-				<th>deadline_date</th>
-				<th>overdue</th>
+				<th>Название</th>
+				<th>Статус</th>
+				<th>Дата создания</th>
+				<th>Дэдлайн</th>
+				<th>Просрочена?</th>
 			</tr>
 		</thead>
 
 		<tbody>
-			<tr *ngFor="let task of userTasks" [ngClass]="{completed: task.fields.status === 3}" (click)="openDetails(task.pk)">
+			<tr *ngFor="let task of userTasks | orderBy: 'fields.created_date': true" [ngClass]="{completed: task.fields.status === 3}" (click)="openDetails(task.pk)">
 				<td>{{ task.fields.title }}</td>
 				<td><div>{{ allStatuses[task.fields.status] }}</div></td>
 				<td>{{ task.fields.created_date }}</td>
 				<td>{{ task.fields.deadline_date }}</td>
-				<td class="overdue"><div *ngIf="(dateUnixNow - 60 * 60 * 3) >= task.fields['deadline_date_unix']">ПРОСРОЧЕНА</div></td>
+				<td class="overdue"><div *ngIf="(dateUnixNow - 60 * 60 * 3) >= task.fields['deadline_date_unix']">ДА</div></td>
 			</tr>
 		</tbody>
 	</table>
