@@ -34,7 +34,6 @@ const routes: Routes = [
   },  
   {
     path: '**', 
-    canActivate: [AuthGuardService],
     component: PageNotFoundComponent
   }  
 ];

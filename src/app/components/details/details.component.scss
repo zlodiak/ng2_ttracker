@@ -1,13 +1,15 @@
 .wrap{
+	overflow: hidden;
 	
 	.table{		
 
 		tr{
 
 			td{
-				padding: 10px;
+				padding: 10px 10px 10px 0;
 
 				&.head{
+					font-weight: bold;
 
 					&.overdue{
 						color: red;
@@ -19,5 +21,9 @@
 				}
 			}
 		}
+	}
+
+	.btn-back{
+		float: right;
 	}
 }

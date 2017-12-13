@@ -4,6 +4,7 @@
 			<tr>
 				<td class="head">Название: </td>
 				<td class="body">{{ task[0]['fields']['title'] }}</td>
+				<td></td>
 			</tr>
 
 			<tr>
@@ -15,21 +16,25 @@
 					  </mat-option>
 					</mat-select>
 				</td>
+				<td></td>
 			</tr>
 
 			<tr>
 				<td class="head">Дата создания: </td>
 				<td class="body">{{ task[0]['fields']['created_date'] }}</td>
+				<td></td>
 			</tr>
 
 			<tr>
 				<td class="head">Дедлайн: </td>
 				<td class="body">{{ task[0]['fields']['deadline_date'] }}</td>
+				<td class="head overdue"><div *ngIf="dateUnixNow >= task[0]['fields']['deadline_date_unix']">ПРОСРОЧЕНА</div></td>
 			</tr>
 
 			<tr>
 				<td class="head">Содержание: </td>
 				<td class="body">{{ task[0]['fields']['body'] }}</td>
+				<td></td>
 			</tr>
 
 			<tr>
@@ -41,12 +46,12 @@
 					  </mat-option>
 					</mat-select>
 				</td>
-			</tr>	
-
-			<tr>
-				<td class="head overdue"><div *ngIf="dateUnixNow >= task[0]['fields']['deadline_date_unix']">ПРОСРОЧЕНА</div></td>
-				<td class="body"></td>
+				<td></td>
 			</tr>														
 		</tbody>
 	</table>
+
+  <button class="btn btn-common btn-back" type="button" mat-button (click)="toList()">
+    <div class="label">Вернуться к списку</div>
+  </button>  	
 </div>

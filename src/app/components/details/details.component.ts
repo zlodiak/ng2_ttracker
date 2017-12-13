@@ -156,4 +156,8 @@ export class DetailsComponent implements OnInit {
     )
   };    
 
+  private toList(): void {
+    this.router.navigate(['/list']);
+  };
+
 }
