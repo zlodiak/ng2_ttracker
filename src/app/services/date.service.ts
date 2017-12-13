@@ -32,7 +32,7 @@ export class DateService {
   };
 
   stringToUnix(str): number {
-  	return (new Date(str).getTime() / 1000) + (60 * 60 * 3);
+  	return (new Date(str).getTime() / 1000);
   };
 
   secondsToHuman(x): string {

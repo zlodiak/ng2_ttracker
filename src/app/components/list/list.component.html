@@ -16,8 +16,9 @@
 				<td><div>{{ allStatuses[task.fields.status] }}</div></td>
 				<td>{{ task.fields.created_date }}</td>
 				<td>{{ task.fields.deadline_date }}</td>
-				<td class="overdue"><div *ngIf="dateUnixNow >= task.fields['deadline_date_unix']">ПРОСРОЧЕНА</div></td>
+				<td class="overdue"><div *ngIf="(dateUnixNow - 60 * 60 * 3) >= task.fields['deadline_date_unix']">ПРОСРОЧЕНА</div></td>
 			</tr>
 		</tbody>
 	</table>
 </div>
+

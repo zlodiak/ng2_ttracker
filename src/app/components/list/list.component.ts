@@ -17,7 +17,8 @@ export class ListComponent implements OnInit {
   private subTasks: any;
   private subStatuses: any;
   private allStatuses: string[] = [];
-	private userTasks: Task[] = [];
+  private userTasks: Task[] = [];
+	private userTasksSorted: Task[] = [];
   private dateUnixNow: number = this.dateService.getNowDate()['unixTimeStamp'];
   private dateUnixNowStr: string = this.dateService.fromUnixToHuman(this.dateUnixNow);  
 
@@ -49,14 +50,15 @@ export class ListComponent implements OnInit {
         let userTasks = JSON.parse(data);         
 
         userTasks.forEach((task) => {
-          task.fields['deadline_date_unix'] = this.dateService.stringToUnix(task.fields.deadline_date);
+          task.fields['deadline_date_unix'] = this.dateService.stringToUnix(task.fields.deadline_date) - (60 * 60 * 3);
           task.fields.deadline_date = this.dateService.fromUnixToHuman(task.fields['deadline_date_unix']);
 
-          task.fields['created_date_unix'] = this.dateService.stringToUnix(task.fields.created_date);
+          task.fields['created_date_unix'] = this.dateService.stringToUnix(task.fields.created_date)  - (60 * 60 * 3);
           task.fields.created_date = this.dateService.fromUnixToHuman(task.fields['created_date_unix']);
         });    
 
         this.userTasks = userTasks; 
+        this.userTasksSorted = this.userTasks.slice(); 
         console.log('userTasks', this.userTasks);
       }, 
       err => {
@@ -85,5 +87,29 @@ export class ListComponent implements OnInit {
   private openDetails(pk):void {
     this.router.navigate(['/details', pk]);
   };
+
+  /*private sortData(sort) {
+    const data = this.userTasks.slice(); 
+    if (!sort.active || sort.direction == '') {
+      this.userTasksSorted = data;
+      return;
+    }
+
+    this.userTasksSorted = data.sort((a, b) => {
+      let isAsc = sort.direction == 'asc';
+      switch (sort.active) {
+        case 'name': return this.compare(a.name, b.name, isAsc);
+        case 'calories': return this.compare(+a.calories, +b.calories, isAsc);
+        case 'fat': return this.compare(+a.fat, +b.fat, isAsc);
+        case 'carbs': return this.compare(+a.carbs, +b.carbs, isAsc);
+        case 'protein': return this.compare(+a.protein, +b.protein, isAsc);
+        default: return 0;
+      }
+    });
+  };  
+
+  private compare(a, b, isAsc) {
+    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  }; */ 
     
 }

@@ -7,7 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule,
          MatInputModule,
          MatDialogModule,
-         MatSelectModule } from '@angular/material';
+         MatSelectModule,
+         MatSortModule } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -35,6 +36,7 @@ import { InfoDialogComponent } from './dialogs/info-dialog/info-dialog.component
     InfoDialogComponent
   ],
   imports: [
+    MatSortModule,
     MatSelectModule,
     MatDialogModule,
     MatInputModule,
