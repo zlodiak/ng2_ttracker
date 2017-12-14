@@ -29,13 +29,7 @@ export class ListComponent implements OnInit {
 
   ngOnInit() {
   	let userId = this.globalVarsService.getVar('authorizedPk');
-    let this_ = this;
-
-    this_.getUserTasks(userId);
-    setInterval(function() {
-      this_.getUserTasks(userId);
-    }, 2000);  	
-
+    this.getUserTasks(userId);
     this.getAllStatuses();
   }
 
@@ -86,30 +80,6 @@ export class ListComponent implements OnInit {
 
   private openDetails(pk):void {
     this.router.navigate(['/details', pk]);
-  };
-
-  /*private sortData(sort) {
-    const data = this.userTasks.slice(); 
-    if (!sort.active || sort.direction == '') {
-      this.userTasksSorted = data;
-      return;
-    }
-
-    this.userTasksSorted = data.sort((a, b) => {
-      let isAsc = sort.direction == 'asc';
-      switch (sort.active) {
-        case 'name': return this.compare(a.name, b.name, isAsc);
-        case 'calories': return this.compare(+a.calories, +b.calories, isAsc);
-        case 'fat': return this.compare(+a.fat, +b.fat, isAsc);
-        case 'carbs': return this.compare(+a.carbs, +b.carbs, isAsc);
-        case 'protein': return this.compare(+a.protein, +b.protein, isAsc);
-        default: return 0;
-      }
-    });
-  };  
-
-  private compare(a, b, isAsc) {
-    return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  }; */ 
+  }; 
     
 }

@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 		this.globalVarsService.getAuthLogin().subscribe(
 			(data) => {
 				this.authorizeLogin = data;
-				console.log('authorizeLogin', this.authorizeLogin);
+				//console.log('authorizeLogin', this.authorizeLogin);
 			}, 
 			(err) => {
 				console.log('err', err);

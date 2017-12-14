@@ -16,6 +16,7 @@ import { User } from '../../interfaces/user';
 })
 export class LoginComponent implements OnInit {
 
+  private subUser: any;
 	private login: string = '';
   private password: string = '';
 	private allUsersData: User[] = [];	
@@ -31,6 +32,10 @@ export class LoginComponent implements OnInit {
       
   	this.getAllUsersData();    
   }
+
+  ngOnDestroy() {
+    this.subUser.unsubscribe();
+  }   
 
   private checkAuth(): void {
     if(this.login) { this.login = this.login.trim(); }
@@ -69,7 +74,7 @@ export class LoginComponent implements OnInit {
   };
 
   private getAllUsersData(): void { 	
-  	this.usersService.getUsers().subscribe(
+  	this.subUser = this.usersService.getUsers().subscribe(
       data => {   
         this.allUsersData = JSON.parse(data);                 
         console.log('allUsersData', this.allUsersData);

@@ -4,7 +4,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
 // import 'rxjs/add/observable/interval';
-// import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/timer';
 
 
 @Injectable()
@@ -13,14 +14,17 @@ export class TasksService {
   constructor(private http: HttpClient) { };
 
   getUserTasks(userId): Observable<any> {
-  	return this.http.get('http://127.0.0.1:8000/app_tasks/user_tasks?user_id=' + userId);
-		/*return Observable.interval(5000).switchMap(() => {
+  	//return this.http.get('http://127.0.0.1:8000/app_tasks/user_tasks?user_id=' + userId);
+		return Observable.timer(0, 2000).switchMap(() => {
 			return this.http.get('http://127.0.0.1:8000/app_tasks/user_tasks?user_id=' + userId);
-		});  */	
+		});  	
   };
 
   getTask(pk): Observable<any> {
-  	return this.http.get('http://127.0.0.1:8000/app_tasks/get_task?pk=' + pk );	
+  	//return this.http.get('http://127.0.0.1:8000/app_tasks/get_task?pk=' + pk );	
+    return Observable.timer(0, 2000).switchMap(() => {
+      return this.http.get('http://127.0.0.1:8000/app_tasks/get_task?pk=' + pk );  
+    });    
   };  
 
   getAllStatuses(): Observable<any> {

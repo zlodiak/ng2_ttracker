@@ -19,9 +19,11 @@ import { User } from '../../interfaces/user';
 })
 export class DetailsComponent implements OnInit {
 
+  private subTask: any;
+  private subUser: any;
 	private subStatuses: any;
+  private subQueryParams: any;  
 	private pk: number;
-	private subQueryParams: any;
 	private task: Task;
 	private user: User;
 	private allUsersData: User[] = [];	
@@ -46,21 +48,18 @@ export class DetailsComponent implements OnInit {
 
     this.getTask();  
     this.getAllStatuses();  
-    setInterval(function() {
-      this_.getTask();
-      this_.getAllStatuses();
-    }, 2000);  
-
     this.getAllUsersData();	    
   }
 
   ngOnDestroy() {
     this.subQueryParams.unsubscribe();
     this.subStatuses.unsubscribe();
+    this.subUser.unsubscribe();
+    this.subTask.unsubscribe();
   }   
 
   private getTask(): void {   
-    this.tasksService.getTask(this.pk).subscribe(
+    this.subTask = this.tasksService.getTask(this.pk).subscribe(
       data => {   
         this.task = JSON.parse(data);    
 
@@ -70,7 +69,7 @@ export class DetailsComponent implements OnInit {
         this.task[0].fields['deadline_date_unix'] = this.dateService.stringToUnix(this.task[0].fields.deadline_date);
         this.task[0].fields.deadline_date = this.dateService.fromUnixToHuman(this.task[0].fields['deadline_date_unix']);        
    
-        //console.log('task', this.task);
+        console.log('task', this.task);
 
         this.selectedUser = this.task[0].fields.user;
 
@@ -83,7 +82,7 @@ export class DetailsComponent implements OnInit {
   };
 
   private getUser(id): void {   
-    this.usersService.getUser(id).subscribe(
+    this.subUser = this.usersService.getUser(id).subscribe(
       data => {   
         this.user = JSON.parse(data);               
         console.log('user', this.user);
